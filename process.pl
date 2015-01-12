@@ -1,7 +1,3 @@
-#######################################
-# Hanson.pl
-# Convert MPS codes to Hansen codes
-################################
 #####################################       
 # PROCESS_15.pl                             
 #  	added SNN - Warning Sign - Sanitary
@@ -18,6 +14,7 @@
 #	added PDE - Pedestal Electric\
 #	ADDED BBA, BBB, BBC, BBR - BRIDGE DECK AGG, BIT, CONC, BRICK
 #	ADDED BSW - BRIDGE SIDEWALK
+
 #
 ####################################
 #----------------------------
@@ -91,7 +88,7 @@
 	#"AGE" => "674", # Shoulder Aggregate Edge
 	"B62" => "516", # Curb B6-24 Top Back
 	"B6B" => "509", # Curb B6-12 Top Back
-	"B6F" => "510", # Curb B6-12 Flowline #deleted v6  #added back hansen01 process15
+	#"B6F" => "510", # Curb B6-12 Flowline #deleted v6
 	#"B6T" => "508", # Curb B6-12 Top Front #deleted v6
 	"BAB" => "615", 	# Bridge Abutment Cap Top.  The outline of the face,sides,
 				# and top of the abutment.  A 3d line.
@@ -1729,12 +1726,94 @@
 );
 ###############################################################################################3                        
 %idotcommands = (
-	"(" => "^", # Begin Line  
-	"%" => "-", # Begin Curve
-	"+" => "+", # Close Figure
-	")" => "/", # End Line
+      	# "(" => "BL*", # Begin Line 20110615   removed process_09.pl
+	# "%" => "OC*", # PC or PT 20110615     removed process_09.pl
+	# "+" => "CL*", # Close Figure 20110615 removed process_09.pl
+	"." => "L", # Begin Line 
+	"(" => "L", # Begin Line    
+	"-" => "C", # Begin Curve
+	"+" => "E", # Close Figure
+	")" => "X", # End Line
+	#"@" => "X", # End Line
+	#"q" => "X", # End Line
 );                        
-
+####################################################################################################
+%notDtmCodes = (
+	"BCB" => "NOTDTM", #"611", 
+	"BAL" => "NOTDTM", #"613",
+	"BPR" => "NOTDTM", #"615",
+	"BDB" => "NOTDTM", #"619",
+	"BDC" => "NOTDTM", #"619",
+	"BBS" => "NOTDTM", #"620",
+	"BEX" => "NOTDTM", #"623",
+	"BHR" => "NOTDTM", #624 Bridge Handrail
+	"BPA" => "NOTDTM", #"624",
+	"BLC" => "NOTDTM", #"626",
+	"BLS" => "NOTDTM", #"627",
+	"BLT" => "NOTDTM", #"628",
+	"BOR" => "NOTDTM", # 640 Boring / Inspection Well
+	"BPC" => "NOTDTM", #"629",
+	"BPT" => "NOTDTM", #"631",
+	"BSW" => "NOTDTM", # 291 BRIDGE SIDEWALK
+	"BWL" => "NOTDTM", #612 Bridge Backwall
+	"DSP" => "NOTDTM", #304 WHEN DOWNSPOUT
+	"FFL" => "NOTDTM", #650 Finish Floor
+	"JUE" => "NOTDTM", #285 Paint Mark - Electrical
+	"JUG" => "NOTDTM", #942 Paint Mark - Gas
+	"JUF" => "NOTDTM", #289 Paint Mark - Fiber Optic
+	"JUR" => "NOTDTM", #224 Paint Mark - Traffic Signal
+	"JUN" => "NOTDTM", #960 Paint Mark - Sanitary
+	"JUM" => "NOTDTM", #962 Paint Mark - Storm
+	"JUT" => "NOTDTM", #286 Paint Mark - Telephone/Communications
+	"JUV" => "NOTDTM", #288 Paint Mark - Cable TV
+	"JUW" => "NOTDTM", #689 Paint Mark - Water
+	"JUS" => "NOTDTM", #289 Paint Mark - Traffic Signal Fiber Optic
+	"PBB" => "NOTDTM", #"666",
+	"PBC" => "NOTDTM", #"666",
+	"TIL" => "NOTDTM", #304 Tile/Downspout
+	"WTR" => "NOTDTM", #867 Top of water elevation 	
+);
+############################################################################################
+####################################################################################################
+%bridgeCodes = (
+	"BAB" => "615", #The outline of the face and sides of
+			# the bridge abutment.  A 3D line.,LOCATION
+	"BAL" => "613", #The outline of the face of the abutment and the
+			#face of the wingwalls.  A 2D line usually collected ""prismless"".",ABUT LOCATION ONLY
+	"BAS" => "618", #Bridge Approach Slab
+	"BBA" => "619", #Bridge Deck - AGG
+	"BBB" => "619",	#Bridge Deck - BIT
+	"BBC" => "619",	#Bridge Deck - CONC
+	"BBS" => "620", #"The bridge seat elevation.  Used only for elevation
+			#and usually collected with ""hook""",ELEV ONLY
+	"BBR" => "619", # Bridge Deck - Bridk
+	"BWL" => "612", #The outline of the face and sides of the bridge
+			#back wall.  A 3D line.,BACKWALL
+	"BCB" => "611", #The top-front of any curb or median on a bridge.,
+	"BDB" => "619", #The line of a bituminous bridge deck.  A 3D line.,HMA
+	"BDC" => "619", #The line of a concrete bridge deck.  A 3D line.,CONC
+	"BEX" => "623", #The location of a bridge expansion joint.  A 3D line.
+	"BHR" => "624", #Bridge Handrail
+	"BLC" => "626", #"The bottom of the concrete bridge beams.  Usually taken 
+			#at the begininning, middle and end of each span of the 
+			#bridge beams.  Usually only required on the outside (upstream and downstream) beams. ",
+	"BLS" => "627", #The bottom of the steel bridge beams.  Usually taken at
+			# the begininning, middle and end of each span of the bridge
+			# beams.  Usually only required on the outside (upstream and downstream) beams. ",
+	"BLT" => "628", #The bottom of the timber bridge beams.  Usually taken at
+			# the begininning, middle and end of each span of the bridge beams.  Usually only required on the outside (upstream and downstream) beams. ",
+	"BPA" => "624", #The parapet or handrail on the bridge.  A 3D line.,
+	"BPC" => "629", #The outline of the face of the pier cap.  A 2D line
+			# usually collected ""prismless"".",PIER LOCATION ONLY
+	"BPR" => "615", #The outline of the face and sides of the pier cap.  A 3D line.,PIER CAP
+	"BPT" => "631", #The pier cap elevation.  Used only for elevation and
+			# usually collected with ""hook""",ELEV ONLY
+	"BSW" => "291",  # Bridge Sidewalk
+	"BWW" => "635", #The outline of the face and sides of the bridge wing wall.
+			#  A 3D line with points at each elevation change.,
+	"PBB" => "666", #A spot elevation on a bituminous bridge deck.,HMA
+	"PBC" => "666", #A spot elevation on a concrete bridge deck.,CONC
+);
 ############################################################################################
 %typePrefix = (
 	# created to make unique numbers for different material types using the same 
@@ -1838,11 +1917,11 @@ if ($#ARGV<0) {
 $fname=$ARGV[0];
 $fname =~ s/\.[^.]*$//;
 open(IN,$ARGV[0]);
-#open(OUT1,">${fname}_dtm.cor");
-#open(OUT2,">${fname}_bridge.cor");
-#open(OUT3,">${fname}_qc_lines.cor");
-#open(OUT4,">${fname}_qc_symbols.cor");
-#open(OUT5,">${fname}_qc_spots.cor");
+open(OUT1,">${fname}_dtm.cor");
+open(OUT2,">${fname}_bridge.cor");
+open(OUT3,">${fname}_qc_lines.cor");
+open(OUT4,">${fname}_qc_symbols.cor");
+open(OUT5,">${fname}_qc_spots.cor");
 open(OUT6,">${fname}_topo.cor");
 if ($#ARGV>0) {
 	$_nextAutogenPtNum=$ARGV[1];
@@ -1874,9 +1953,9 @@ while (<IN>) {
 	my @csplit = ($ssplit[0] =~ /(\w\w\w)(\d*)/); # this is for QAQC
 			# $csplit[0] = 3 letter code
 			# $csplit[1] = line number 
-#	if (length($fsplit[1])>0) {##############lv
-#		$fsplit[1]="\;$fsplit[1]"; ########lv - adds the semi-colon before the Comment
-#	}
+	if (length($fsplit[1])>0) {##############lv
+		$fsplit[1]="\;$fsplit[1]"; ########lv - adds the semi-colon before the Comment
+	}
 	$Icode=$pointCodes{$csplit[0]}; ## if the three letter code matches any of the codes 
 
 ##############Test Section	
@@ -1907,23 +1986,88 @@ while (<IN>) {
          	$noLineCounter = $noLineCounter + 1;
 	}                                                                          	  
 	########################################Begin sorting and printing
-
-	
-	# Hansen Printing Section
-	# Check against linecode list 
-	if 	(exists ($lineCodes{$Icode})) {
-		 #print OUT6 "the lines codes is            $lineCodes{$Icode}\n";
-     		 #print OUT6 "the line code is           $idotcommands{$tok[0]}\n";
+	#################################################	 
+	 
+	 
+	 
+	# Check for codes that do not belong in the dtm and place everything else in 
+	# the dtm file
+	if 	(exists ($notDtmCodes{$csplit[0]})) {
+		}
+	else	{
+     		# print OUT1 "the dtmcodes is            $notDtmCodes{$csplit[0]}\n";
+     		# print OUT1 "the line code is           $idotcommands{$tok[0]}\n";
 	       	if	($c = $idotcommands{$tok[0]}) {
-		       print OUT6 "$in[0] $in[1] $in[2] $in[3] $Icode $c $csplit[1] $fsplit[1]\n"; 
+		       print OUT1 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
 		}
 		else 	{
-	  		print OUT6 "$in[0] $in[1] $in[2] $in[3] $Icode . $csplit[1] $fsplit[1]\n";
+	  		print OUT1 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
 		}
 	}
-	else 	{
-	  		print OUT6 "$in[0] $in[1] $in[2] $in[3] $Icode $csplit[1] $fsplit[1]\n";
-	}	
+	# Check for bridge codes and put them into the bridge file and everything else into the topo file 
+	
+	if 	(exists ($bridgeCodes{$csplit[0]})) {
+		# print OUT2 "the bridgeCode is            $bridgeCodes{$csplit[0]}\n";
+     		# print OUT2 "the line code is           $idotcommands{$tok[0]}\n";
+	       	if	($c = $idotcommands{$tok[0]}) {
+		       print OUT2 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
+		}
+		else 	{
+	  		print OUT2 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";		
+		}
+	}
+	else	{
+     		# print OUT6 "the bridgeCode is            $bridgeCodes{$csplit[0]}\n";
+     		# print OUT6 "the line code is           $idotcommands{$tok[0]}\n";
+	       	if	($c = $idotcommands{$tok[0]}) {
+		       print OUT6 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
+		}
+		else 	{
+	  		print OUT6 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
+		}
+	}
+	
+	# QAQC
+	# Check against linecode list 
+	if 	(exists ($lineCodes{$Icode})) {
+		# print OUT3 "the lines codes is            $lineCodes{$Icode}\n";
+     		# print OUT3 "the line code is           $idotcommands{$tok[0]}\n";
+	       	if	($c = $idotcommands{$tok[0]}) {
+		       print OUT3 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
+		}
+		else 	{
+	  		print OUT3 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
+		}
+	}
+	# Check against generalCodes list for spots 
+	#print OUT5 "general Codes is   $generalCodes{$Icode}  \n";
+	#print OUT5 "Icode is                                       $Icode \n";
+	if 	(exists ($generalCodes{$Icode})) {
+		# print OUT5 "the lines codes is            $generalCodes{$Icode}\n";
+     		# print OUT5 "the line code is          $idotcommands{$tok[0]}\n";
+	       	if	($c = $idotcommands{$tok[0]}) {
+		       print OUT5 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
+		}
+		else 	{
+	  		print OUT5 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
+		}
+	}
+	
+	
+	# Check against symbolCodes list for cells 
+	#print OUT5 "symbol Codes is   $symbolCodes{$Icode}  \n";
+	#print OUT5 "Icode is                                       $Icode \n";
+	if 	(exists ($symbolCodes{$Icode})) {
+		# print OUT5 "the lines codes is            $generalCodes{$Icode}\n";
+     		# print OUT5 "the line code is          $idotcommands{$tok[0]}\n";
+	       	if	($c = $idotcommands{$tok[0]}) {
+		       print OUT4 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
+		}
+		else 	{
+	  		print OUT4 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
+		}
+	}
+	
 	
 
 ####################### TEST SECTION                               
