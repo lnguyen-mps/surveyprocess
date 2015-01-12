@@ -1,3 +1,28 @@
+####################################
+#----------------------------
+# Process_12.pl
+#	added:
+#		LNB = Lane Lines - HMA/BIT 
+#		LNC = Lance Lines - Conc
+#		TOE = Toe of Slope
+#		TOP = Top of Slope
+#		RIP = Riprap  
+#		DCA = Driveway/Commercial Aggregate
+#		DCB = Driveway/Commercial BIT/HMA
+#		DCC = Driveway/Commercial Concrete
+#		DCG = Driveway/Commercial Ground
+#		DCR = Driveway/Commercial Brick
+#		DFA = Driveway/Field Aggregate
+#		DFB = Driveway/Field BIT/HMA
+#		DFC = Driveway/Field Concrete
+#		DFG = Driveway/Field Ground
+#		DFR = Driveway/Field Brick
+#		DPA = Driveway/Private-Residential Aggregate
+#		DPB = Driveway/Private-Residential BIT/HMA
+#		DPC = Driveway/Private-Residential Concrete
+#		DPG = Driveway/Private-Residential Ground
+#		DPR = Driveway/Private-Residential Brick
+########################################			
 #-----------------------
 # Process_11.pl 20111028
 #
@@ -107,6 +132,21 @@
 	"CUE" => "302",
 	"CUP" => "300",
 	"DAM" => "369",
+	"DCA" => "652",	# ver12 - Driveway/Commercial Aggregate                 
+	"DCB" => "652",	# ver12 - Driveway/Commercial BIT/HMA           
+	"DCC" => "652",	# ver12 - Driveway/Commercial Concrete          
+	"DCG" => "652",	# ver12 - Driveway/Commercial Ground            
+	"DCR" => "652",	# ver12 - Driveway/Commercial Brick             
+	"DFA" => "654",	# ver12 - Driveway/Field Aggregate              
+	"DFB" => "654",	# ver12 - Driveway/Field BIT/HMA                
+	"DFC" => "654",	# ver12 - Driveway/Field Concrete               
+	"DFG" => "654",	# ver12 - Driveway/Field Ground                 
+	"DFR" => "654",	# ver12 - Driveway/Field Brick                  
+	"DPA" => "656",	# ver12 - Driveway/Private-Residential Aggregate
+	"DPB" => "656",	# ver12 - Driveway/Private-Residential BIT/HMA  
+	"DPC" => "656",	# ver12 - Driveway/Private-Residential Concrete 
+	"DPG" => "656",	# ver12 - Driveway/Private-Residential Ground   
+	"DPR" => "656",	# ver12 - Driveway/Private-Residential Brick    
 	"DRA" => "649", # Driveway - aggregate
 	"DRB" => "649", # Driveway - HMA
 	"DRC" => "649", # Driveway - Concrete
@@ -148,7 +188,9 @@
 	"JUS" => "224",	# JULIE  Traffic Signal Fiber Optic Mark
 	"JUT" => "286",
 	"JUV" => "288",
-	"JUW" => "689", # JULIE Waterline Mark 
+	"JUW" => "689", # JULIE Waterline Mark
+	"LNB" => "678", # Lane Line - HMA
+	"LNC" => "678", # Lane Line - CONC 
 	"LND" => "318",
 	"LNM" => "694",
 	"MBX" => "400",
@@ -183,6 +225,7 @@
 	"PPU" => "253",
 	"PRK" => "682", # Parking Meter
 	"RGG" => "335", # Regulator - Gas
+	"RIP" => "605", # Riprap
 	#"RNW" => "376",
 	"ROW" => "213",
 	"RRC" => "458",
@@ -210,6 +253,8 @@
 	"SWK" => "291",
 	#"TOB" => "881", # Top of Bank
 	"TIL" => "304", # Tile
+	"TOE" => "860", # Toe of Slope
+	"TOP" => "861", # Top of Slope
 	"TRC" => "406",
 	"TRD" => "405",
 	"TRF" => "220", # Traffic Signal
@@ -1730,6 +1775,7 @@
 			#  A 3D line with points at each elevation change.,
 	"PBB" => "666", #A spot elevation on a bituminous bridge deck.,HMA
 	"PBC" => "666", #A spot elevation on a concrete bridge deck.,CONC
+	"760" => "760", #Anchor Bolt 
 );
 ############################################################################################
 %typePrefix = (
@@ -1740,7 +1786,22 @@
 	"BDB" => "2", # 619 - BRIDGE DECK BIT 
 	"BDC" => "3", # 619 - BRIDGE DECK CONC
 	"BPA" => "1", # 624 - BRIDGE PARAPET
-	"BHR" => "2", # 624 - BRIDGE HANDRAIL  
+	"BHR" => "2", # 624 - BRIDGE HANDRAIL
+	"DCA" => "1", # 652 - Driveway/Commercial Aggregate                 
+	"DCB" => "2", # 652 - Driveway/Commercial BIT/HMA           
+	"DCC" => "3", # 652 - Driveway/Commercial Concrete          
+	"DCG" => "4", # 652 - Driveway/Commercial Ground            
+	"DCR" => "5", # 652 - Driveway/Commercial Brick             
+	"DFA" => "1", # 654 - Driveway/Field Aggregate              
+	"DFB" => "2", # 654 - Driveway/Field BIT/HMA                
+	"DFC" => "3", # 654 - Driveway/Field Concrete               
+	"DFG" => "4", # 654 - Driveway/Field Ground                 
+	"DFR" => "5", # 654 - Driveway/Field Brick                  
+	"DPA" => "1", # 656 - Driveway/Private-Residential Aggregate
+	"DPB" => "2", # 656 - Driveway/Private-Residential BIT/HMA  
+	"DPC" => "3", # 656 - Driveway/Private-Residential Concrete 
+	"DPG" => "4", # 656 - Driveway/Private-Residential Ground   
+	"DPR" => "5", # 656 - Driveway/Private-Residential Brick    
 	"DRA" => "1", # 649 - DRIVEWAY AGG 
 	"DRB" => "2", # 649 - DRIVEWAY BIT/HMA
 	"DRC" => "3", # 649 - DRIVEWAY CONC
@@ -1752,6 +1813,8 @@
 	"EOR" => "4", # 668 - EDGE OF PAVMENT BRICK
 	"JUR" => "1", # 224 - TRAFFIC PAINT MARK QL-B
 	"JUS" => "2", # 224 - TRAFFIC PAINT MARK FIBER OPTIC QL-B
+	"LNB" => "2", # 678 - LANE LINES BIT/HMA
+	"LNC" => "3", # 678 - LANE LINES CONC
 	"SHA" => "1", # 674 - SHOULDER AGG
 	"SHB" => "2", # 674 - SHOULDER BIT/HMA
 	"SHC" => "3", # 674 - SHOULDER CONC
