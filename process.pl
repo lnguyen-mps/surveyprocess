@@ -1,5 +1,38 @@
-#following array maps keys used by Field Surveyors 
-# codes not in the list pass through unchanged
+########################
+# Process_09.pl	20110727
+#
+#	Process_8 had many improvements - however I also migrated to "Mapping Codes"
+#	(instead of "Line Codes") as an option in Geopak.  Using the "Mapping Codes" I was
+#	finally able to get the curves to work. These codes also needed to be at the beginning of 
+#	code like BL*EOP1.
+#
+#	But the Mapping Code option forced the lines to be created in
+#	point number order.  This caused problems in processing.  It ignored 
+#	the order of the points in the ASCII file.
+#	For example, say you missed an EOP1 shot on a cross section and went back to it at the
+#	next set up.
+#	Now to draw that line correctly using the "Line Coding" option you can reorder the records in
+#	the ASCII file like:
+#	1,1000,1000,EOP1,L
+#	2,1000,1010,EOP1,
+# 	40,1000,1020,EOP1,
+#	3,1000,1030,EOP1,
+#
+#	In the "Mapping Codes" option, the order of the ASCII file is ignored and the EOP1 are sorted
+#	so that the line goes 1,2,3,40.
+#
+#	This was too big of a complication to screw with; we would need to RENUMBER points to 
+#	get the line to draw correctly.
+#	So this version has the latest code changes (MPS_IDOTCodes_V02_15.xlsx) and reverts back to 
+#	processing with the "Line Coding" option.
+#
+##############################################################################
+#
+#########################################################################
+#	The following array maps keys used by Field Surveyors 
+#
+#
+#	Codes not in the list pass through unchanged
 #####################################################################################
 %pointCodes = (  # ABC -> 123
 	#"XXX" => "XXX",
@@ -91,6 +124,7 @@
 	"FNG" => "418",
 	"GND" => "604",
 	"GRL" => "420",	# Guard Rail
+	"GUT" => "575",	# Gutter/Flowline
 	"GUY" => "265",
 	"H2O" => "867", # Water Line
 	"HHD" => "275", # Traffic Signal Handhole Double - added v6
@@ -157,14 +191,14 @@
 	"SHC" => "674", # Shoulder - Concrete
 	"SNC" => "423", # Sign - Commercial
 	"SNE" => "350",
+	"SNF" => "350",
 	"SNG" => "350",
 	"SNL" => "424",
-	"SNO" => "350",
 	"SNP" => "350",
 	"SNR" => "673", # Sign - Traffic
 	"SNT" => "350",
 	"SNV" => "350",
-	"SPC" => "669", # Special / Misc.
+	"SPC" => "699", # Special / Misc.
 	"STR" => "609", # Stairs/Porch
 	"SWK" => "291",
 	#"TOB" => "881", # Top of Bank
@@ -1086,11 +1120,13 @@
 	"999" => "999"   
 );
 #################################
-#begin QAQC lists
+#	Begin QAQC lists
+#
 #	last used scales for field check 
 #	General = 10
 #	Lines = 2
 #	Symbols = 40
+########################################
                       
 %lineCodes = ( #lines in IDOT.smd
 	"216" => "Existing Easement",
@@ -1509,7 +1545,7 @@
 	"703" => "Topo Survey Point",
 	"707" => "Cut Square",	
 );
-%symbolCodes = (
+%symbolCodes = ( # symbols in IDOTsmd
 	"103" => "Traverse Station",
 	"109" => "Horizontal Control Station",
 	"200" => "Section Corner",
@@ -1606,17 +1642,16 @@
 );
 ###############################################################################################3                        
 %idotcommands = (
-      	"(" => "BL*", # Begin Line 20110615
-	"%" => "OC*", # PC or PT 20110615
-	"+" => "CL*", # Close Figure 20110615
-	#"." => "L", # Begin Line 
-	#"(" => "L", # Begin Line    
-	#"-" => "C", # Begin Curve
-	#"+" => "E", # Close Figure
-	#")" => "X", # End Line
+      	# "(" => "BL*", # Begin Line 20110615   removed process_09.pl
+	# "%" => "OC*", # PC or PT 20110615     removed process_09.pl
+	# "+" => "CL*", # Close Figure 20110615 removed process_09.pl
+	"." => "L", # Begin Line 
+	"(" => "L", # Begin Line    
+	"-" => "C", # Begin Curve
+	"+" => "E", # Close Figure
+	")" => "X", # End Line
 	#"@" => "X", # End Line
 	#"q" => "X", # End Line
-
 );                        
 ####################################################################################################
 %notDtmCodes = (
@@ -1632,6 +1667,7 @@
 	"BLC" => "NOTDTM", #"626",
 	"BLS" => "NOTDTM", #"627",
 	"BLT" => "NOTDTM", #"628",
+	"BOR" => "NOTDTM", # 640 Boring / Inspection Well
 	"BPC" => "NOTDTM", #"629",
 	"BPT" => "NOTDTM", #"631",
 	"BWL" => "NOTDTM", #612 Bridge Backwall
@@ -1692,8 +1728,12 @@
 %typePrefix = (
 	# created to make unique numbers for different material types using the same 
 	# IDOT code
+	"BAB" => "1", # 615 - BRIDGE ABUTMENT TOP FACE 
+	"BPR" => "2", # 615 - BRIDGE PIER TOP FACE 
 	"BDB" => "2", # 619 - BRIDGE DECK BIT 
 	"BDC" => "3", # 619 - BRIDGE DECK CONC
+	"BPA" => "1", # 624 - BRIDGE PARAPET
+	"BHR" => "2", # 624 - BRIDGE HANDRAIL  
 	"DRA" => "1", # 649 - DRIVEWAY AGG 
 	"DRB" => "2", # 649 - DRIVEWAY BIT/HMA
 	"DRC" => "3", # 649 - DRIVEWAY CONC
@@ -1715,11 +1755,20 @@
 ########################################################################################################
 %noLine = (
 	# created to trick the IDOT.smd file, so that is does not draw lines between these codes 
+	"DSP" => "NOLINE", # 304 - DOWNSPOUT
+	"FES" => "NOLINE", # 649 - DRIVEWAY CONC
 	"HHD" => "NOLINE", # 275 - TRAFFIC SIGNAL HANDHOLE DOUBLE 
-	"HHT" => "NOLINE", # 274 - TRAFFIC SIGNAL HANDHOLE 
-	"DSP" => "NOLINE", # 304 - DOWNSPOUT 
-	"WTR" => "NOLINE", # 649 - DRIVEWAY BIT/HMA
-	"FES" => "NOLINE", # 649 - DRIVEWAY CONC	
+	"HHT" => "NOLINE", # 274 - TRAFFIC SIGNAL HANDHOLE
+	"MHE" => "NOLINE", # 280 - ELECTRIC MH
+	"MHT" => "NOLINE", # 280 - TELEPHONE MH
+	"MHV" => "NOLINE", # 280 - TV MH
+	"RRC" => "NOLINE", # 458 - RR SIGNAL CABINET
+	"RRG" => "NOLINE", # 466 - RR CROSSING GATE
+	"RRR" => "NOLINE", # 451 - RR TOP OF RAIL SPOT
+	"SBR" => "NOLINE", # 223 - TRAFFIC SIGNAL CONTROLLER - SPLICE BOX
+	"UND" => "NOLINE", # 381 - UNDERDRAIN
+	"WTR" => "NOLINE", # 649 - TOP OF WATER ELEVATION
+	
 );
 #########################################################################################################
 #####################
@@ -1767,9 +1816,9 @@ while (<IN>) {
 			#$in[1] = northing
 			#$in[2] = easting
 			#$in[3] = elevation
-			#$in[4] = full description (3 Letter Code-Line Number-Line Code- Comment)
+			#$in[4] = full description (3 Letter Code-Line Number-Line Code-Comment)
 	my @fsplit = split(/\s+/,$in[4],2); #added lv - this separates the Codes from the Comments
-		#using the first whitespace as the separator so:
+			#using the first whitespace as the separator so:
 			#$fsplit[0] = 3 Letter Code-Line Number-Line Code
 			#$fsplit[1] = the Comment
 	my @ssplit = ($fsplit[0] =~ /(\w+)*(\W*)/); #added lv - this separtes the 3 Letter Code and 
@@ -1829,10 +1878,10 @@ while (<IN>) {
      		# print OUT1 "the dtmcodes is            $notDtmCodes{$csplit[0]}\n";
      		# print OUT1 "the line code is           $idotcommands{$tok[0]}\n";
 	       	if	($c = $idotcommands{$tok[0]}) {
-		       print OUT1 "$in[0],$in[1],$in[2],$in[3],$c$Icode$csplit[1]$fsplit[1]\n"; 
+		       print OUT1 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
 		}
 		else 	{
-	  		print OUT1 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1]\n";
+	  		print OUT1 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
 		}
 	}
 	# Check for bridge codes and put them into the bridge file and everything else into the topo file 
@@ -1841,20 +1890,20 @@ while (<IN>) {
 		# print OUT2 "the bridgeCode is            $bridgeCodes{$csplit[0]}\n";
      		# print OUT2 "the line code is           $idotcommands{$tok[0]}\n";
 	       	if	($c = $idotcommands{$tok[0]}) {
-		       print OUT2 "$in[0],$in[1],$in[2],$in[3],$c$Icode$csplit[1]$fsplit[1]\n"; 
+		       print OUT2 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
 		}
 		else 	{
-	  		print OUT2 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1]\n";		
+	  		print OUT2 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";		
 		}
 	}
 	else	{
      		# print OUT6 "the bridgeCode is            $bridgeCodes{$csplit[0]}\n";
      		# print OUT6 "the line code is           $idotcommands{$tok[0]}\n";
 	       	if	($c = $idotcommands{$tok[0]}) {
-		       print OUT6 "$in[0],$in[1],$in[2],$in[3],$c$Icode$csplit[1]$fsplit[1]\n"; 
+		       print OUT6 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
 		}
 		else 	{
-	  		print OUT6 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1]\n";
+	  		print OUT6 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
 		}
 	}
 	
@@ -1864,10 +1913,10 @@ while (<IN>) {
 		# print OUT3 "the lines codes is            $lineCodes{$Icode}\n";
      		# print OUT3 "the line code is           $idotcommands{$tok[0]}\n";
 	       	if	($c = $idotcommands{$tok[0]}) {
-		       print OUT3 "$in[0],$in[1],$in[2],$in[3],$c$Icode$csplit[1]$fsplit[1]\n"; 
+		       print OUT3 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
 		}
 		else 	{
-	  		print OUT3 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1]\n";
+	  		print OUT3 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
 		}
 	}
 	# Check against generalCodes list for spots 
@@ -1877,10 +1926,10 @@ while (<IN>) {
 		# print OUT5 "the lines codes is            $generalCodes{$Icode}\n";
      		# print OUT5 "the line code is          $idotcommands{$tok[0]}\n";
 	       	if	($c = $idotcommands{$tok[0]}) {
-		       print OUT5 "$in[0],$in[1],$in[2],$in[3],$c$Icode$csplit[1]$fsplit[1]\n"; 
+		       print OUT5 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
 		}
 		else 	{
-	  		print OUT5 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1]\n";
+	  		print OUT5 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
 		}
 	}
 	
@@ -1892,10 +1941,10 @@ while (<IN>) {
 		# print OUT5 "the lines codes is            $generalCodes{$Icode}\n";
      		# print OUT5 "the line code is          $idotcommands{$tok[0]}\n";
 	       	if	($c = $idotcommands{$tok[0]}) {
-		       print OUT4 "$in[0],$in[1],$in[2],$in[3],$c$Icode$csplit[1]$fsplit[1]\n"; 
+		       print OUT4 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n"; 
 		}
 		else 	{
-	  		print OUT4 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1]\n";
+	  		print OUT4 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
 		}
 	}
 	
@@ -1913,9 +1962,9 @@ while (<IN>) {
 #print OUT5 "ssplit[1] line code            = $ssplit[1]\n";        
 #print OUT5 "tok[0] line code               = $tok[0]\n";           
 #print OUT5 "tok[1] code, line no., comment = $tok[1]\n";
-#print OUT5 "csplit[0] alpha code	   = $csplit[0]\n";
-#print OUT5 "csplit[1] line number	   = $csplit[1]\n";  
-##print OUT1 "hold 			   = $hold\n";            
+#print OUT5 "csplit[0] alpha code	    = $csplit[0]\n";
+#print OUT5 "csplit[1] line number	    = $csplit[1]\n";  
+#print OUT1 "hold 			    = $hold\n";            
 #print OUT5 "c linecode                     = $c\n";                
 #print OUT5 "Icode idot code, line no.      = $Icode\n\n\n\n\n";           
 

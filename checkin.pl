@@ -69,7 +69,10 @@
 	"DRA" => "legal",	# Driveway/Entrance Aggregate
 	"DRB" => "legal",	# Driveway/Entrance HMA
 	"DRC" => "legal",	# Driveway/Entrance Concrete
-	"DRR" => "legal",	# Driveway/Entrance Brick 
+	"DRG" => "legal",	# Field Entrance
+	"DRR" => "legal",	# Driveway/Entrance Brick
+	"DSP" => "legal",	# Downspout
+	"DTH" => "legal",	# Ditch Flowline 
 	"DTP" => "legal",	# Paved Ditch Centerline
 	"EOA" => "legal",	# Edge of Pavement - Aggregate
 	"EOB" => "legal",	# Edge of Pavement - BIT/HMA
@@ -86,12 +89,14 @@
 	"EUC" => "legal",	# Edge of Conc Pavement - curb - no shoulder
 	"EWC" => "legal",	# Edge of Conc Pavement - Concrete SDhoulder with curb
 	"FES" => "legal",	# Flared End Section
+	"FFL" => "legal",	# Finish Floor Elevation
 	#"FLW" => "legal",
 	"FNC" => "legal",	# Fence Line
 	"FND" => "legal",	# Found Survey Evidence
 	"FNG" => "legal",	# Fence Gate Post
 	"GND" => "legal",	# Ground Shot
 	"GRL" => "legal",	# Guard Rail
+	"GUT" => "legal",	# Gutter/Flowline
 	"GUY" => "legal",	# Guy Wire
 	"H2O" => "legal",	# Edge of Water
 	"HHD" => "legal",	# Handhole - Traffic Signal - Double
@@ -122,6 +127,7 @@
 	"MHM" => "legal",	# Mahhole Storm
 	"MHN" => "legal",	# Manhole Sanitary
 	"MHT" => "legal",	# Manhole Telephone/Communications
+	"MHV" => "legal",	# Manhole Cable TV
 	"MHW" => "legal",	# Manhole Water
 	"MSC" => "legal",	# Misc - added v6
 	"MTE" => "legal",	# Meter Electrical
@@ -162,6 +168,7 @@
 	"SNF" => "legal",	# Sign - Warning - Fiber Optic
 	"SNG" => "legal",	# Sign - Warning - Gas
 	"SNL" => "legal",	# Sign - For Line Coding
+#	"SNO" => "legal",	# Sign - Warning - Fiber Optic
 	"SNP" => "legal",	# Sign - Warning - Petroleum
 	"SNR" => "legal",	# Sign - Traffic
 	"SNT" => "legal",	# Sign - Warning - Telephone/Communications
@@ -240,6 +247,7 @@
 	"351" => "legal",
 	"354" => "legal",
 	"359" => "legal",
+	"363" => "legal",
 	"369" => "legal",
 	"376" => "legal",
 	"379" => "legal",
@@ -330,7 +338,9 @@
 	"DRA" => "AGG",
 	"DRB" => "HMA",
 	"DRC" => "CONC",
+	"DRG" => "FIELD ENTRANCE",
 	"DRR" => "BRICK",
+	"DSP" => "DOWNSPOUT",
 	"EOA" => "AGG",
 	"EOB" => "HMA",
 	"EOC" => "CONC",
@@ -342,9 +352,11 @@
 	"ETC" => "CONC W/ BIT SHLD & CURB",
 	"EUB" => "BIT W/ CURB",
 	"EUC" => "CONC W/ CURB",
-	"EWC" => "CONC W/ CONC SHLD & CURB", 
+	"EWC" => "CONC W/ CONC SHLD & CURB",
+	"FFL" => "FINISH FLOOR", 
 	"JUN" => "SANITARY QL-B",
 	"JUT" => "COMM QL-B",
+	"JUS" => "FIBER OPTIC QL-B",
 	"JUV" => "TV QL-B", 
 	"JUW" => "WATER QL-B",
 	"MHM" => "STORM",
@@ -353,6 +365,7 @@
 	"MHF" => "FIBER",
 	"MHG" => "GAS",
 	"MHN" => "SANITARY",
+	"MHV" => "CABLE TV",
 	"MHW" => "H2O",
 	"MTE" => "ELEC",
 	"MTW" => "H2O",
@@ -366,12 +379,13 @@
 	"SHB" => "HMA",
 	"SHC" => "CONC",
 	"SNE" => "ELEC",
+	"SNF" => "FIBER",
 	"SNG" => "GAS",
-	"SNO" => "FIBER",
 	"SNP" => "PETRL", 
 	"SNT" => "COMM",
 	"SNV" => "TV",
-	"VLN" => "VALVE",
+	"TIL" => "TILE",
+	"VLN" => "VALVE SANITARY",
 	"WTR" => "TOP ELEV",	
 );
 @flagCodes = (
@@ -639,12 +653,15 @@ while (<IN>) {
 	if ($ssplit[1] =~ /^\.$/) {	#BEGIN LINE
 		$linecode = "(";
 	}
+	if ($ssplit[1] =~ /-/) {	#PC or PT (substitiute for OC);Graef Curve 20110610
+		$linecode = "%";
+	}
 	if ($ssplit[1] =~ /@/) {	#END LINE
 		$linecode = ")";
 	}
-	if ($ssplit[1] =~ /-/) {	#PC CURVE
-		$linecode = "-";
-	}
+	#if ($ssplit[1] =~ /-/) {	#PC CURVE
+	#	$linecode = "-";
+	#}
 	if ($ssplit[1] =~ /\+/) {	#CLOSE FIGURE
 		$linecode = "+";
 	}
