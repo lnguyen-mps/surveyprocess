@@ -1,10 +1,3 @@
-#---------------------------------------
-#
-# chkMtoH_21.pl
-# Fork of checkin_21process.pl - convert MPS codes to Hoelscher codes
-#
-#
-#----------------------------------------
 # checkin_21.pl
 # 20131107
 # added (modified):
@@ -108,7 +101,6 @@
  "BLT" => "legal", # The bottom of the timber bridge beams.  Usually taken at
                    # the beginning middle and end oof each span of the bridge beams.
                    # Usually only required on the outside (upstream and downstream) beams.
- "BMK" => "legal", #H Benchmark
  "BOL" => "legal", # Bollard
  "BOR" => "legal", # Boring/Coring
  "BPA" => "legal", # The bridge parapet. A 3d line.
@@ -134,7 +126,6 @@
  "BWW" => "legal", # The outline of the face and sides of the wingwall.  A 3d line with
                    # points at each elevation change.
  "CBM" => "legal", # Catch Basin - Round Open
- "CDE" => "legal", #H Conduit - Electrical
  "CKH" => "legal", # Control Point Check - Horizontal
  "CKV" => "legal", # Control Point Check - Vertical
  "CLR" => "legal", # Centerline Railroad Track - depreciated
@@ -498,7 +489,6 @@
  "AEM" => "MAIN",
  "BAB" => "ABUTMENT CAP",
  "BAL" => "LOCATION ONLY",
- "BAR" => "White", #H
  "BBA" => "AGG",
  "BBB" => "HMA",
  "BBC" => "CONC",
@@ -517,16 +507,12 @@
  "BPT" => "ELEV ONLY",
  "BSC" => "SCUPPER",
  "BSS" => "STRUCTURAL STEEL",
- "BUC" => "Commercial", #H
  "BWC" => "SIDEWALK CONC",
  "BWL" => "BACKWALL",
- "CDE" => "Conduit" #H
  "CNA" => "AGG",
  "CNB" => "HMA",
  "CNC" => "CONC",
  "CNR" => "BRICK",
- "CRW" => "White", #H
- "CUP" => "Culvert", #H
  "DRA" => "AGG",
  "DRB" => "HMA",
  "DRC" => "CONC",
@@ -566,7 +552,6 @@
  "HHR" => "TRAFFIC SIGNAL",
  "HHT" => "TELEPHONE",
  "HHV" => "CABLE TV",
- "JUF" => "Fiber", #H
  "JUN" => "SANITARY QL-B",
  "JUT" => "COMM QL-B",
  "JUS" => "FIBER OPTIC QL-B",
@@ -574,7 +559,6 @@
  "JUW" => "WATER QL-B",
  "LNB" => "HMA",
  "LNC" => "CONC",
- "LNM" => "White", #H
  "MHM" => "STORM",
  "MHT" => "COMM",
  "MHE" => "ELEC",
@@ -586,7 +570,6 @@
  "MHW" => "H2O",
  "MTE" => "ELEC",
  "MTW" => "H2O",
- "NPS" => "Yellow", #H
  "PBB" => "HMA",
  "PBC" => "CONC",
  "PDE" => "ELEC",
@@ -596,7 +579,6 @@
  "PMC" => "CONC",
  "PMR" => "BRICK",
  "RCK" => "BOULDER",
- "RWL" => "Retaining Wall", #H
  "SBT" => "TELEPHONE",
  "SBW" => "SPRINKLER SYSTEM",
  "SHA" => "AGG",
