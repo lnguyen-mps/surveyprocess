@@ -1,21 +1,3 @@
-#---------------------------------------
-#
-# chkMtoH_21.pl
-# Fork of checkin_21process.pl - convert MPS codes to Hoelscher codes
-#
-#
-#----------------------------------------
-# checkin_21.pl
-# 20131107
-# added (modified):
-#      MHM Storm Manhole 351
-#      MHN Sanitary Manhole 337
-#      VLB Valve Box 342
-#      VLW Water Valve 343
-#      VLG Gas Valve 344
-#      BBG Gas Buffalo Box 319
-#      BBW Water Buffalo Box 320
-#####################################
 ####################################
 # checkin_20.pl
 # 20130322
@@ -88,7 +70,6 @@
  "BBS" => "legal", # The bridge seat elevation.  For elevation only.  Usually collected
                    # with the "hook".
  "BBW" => "legal", # Buffalo Box - Water
- "BBU" => "legal", # Buffalo Box - Gas
  #"BBX" => "legal", # Buffalo Box - Water
  "BCB" => "legal", # The top front of any curb or median on a bridge.
  "BDB" => "legal", # The line of the bit bridge deck.  A 3d line.
@@ -108,7 +89,6 @@
  "BLT" => "legal", # The bottom of the timber bridge beams.  Usually taken at
                    # the beginning middle and end oof each span of the bridge beams.
                    # Usually only required on the outside (upstream and downstream) beams.
- "BMK" => "legal", #H Benchmark
  "BOL" => "legal", # Bollard
  "BOR" => "legal", # Boring/Coring
  "BPA" => "legal", # The bridge parapet. A 3d line.
@@ -134,7 +114,6 @@
  "BWW" => "legal", # The outline of the face and sides of the wingwall.  A 3d line with
                    # points at each elevation change.
  "CBM" => "legal", # Catch Basin - Round Open
- "CDE" => "legal", #H Conduit - Electrical
  "CKH" => "legal", # Control Point Check - Horizontal
  "CKV" => "legal", # Control Point Check - Vertical
  "CLR" => "legal", # Centerline Railroad Track - depreciated
@@ -317,11 +296,10 @@
  "TRL" => "legal", # Traffic Loop Detector
  "THW" => "legal", # Thalweg - Lowest Point
  "UND" => "legal", # Underdrain
- "VLB" => "legal", # Valve - Box
  "VLG" => "legal", # Valve - Gas
- "VLN" => "legal", # Valve - Sanitary
+ "VLN" => "legal",  # Valve - Sanitary
  "VLW" => "legal", # Valve - Water (By Hydrant)
- "VLE" => "legal", # Valve - Electric
+ "VLE" => "legal",  # Valve - Electric
  "VNG" => "legal", # Vent - Gas
  "VNT" => "legal", # Vent - Gas
  "VNN" => "legal", # Vent - Sanitary
@@ -385,7 +363,6 @@
  "335" => "legal",
  "337" => "legal",
  "339" => "legal",
- "342" => "legal",
  "343" => "legal",
  "344" => "legal",
  "346" => "legal",
@@ -498,12 +475,9 @@
  "AEM" => "MAIN",
  "BAB" => "ABUTMENT CAP",
  "BAL" => "LOCATION ONLY",
- "BAR" => "White", #H
  "BBA" => "AGG",
  "BBB" => "HMA",
  "BBC" => "CONC",
- "BBG" => "GAS BUFFALO BOX",
- "BBW" => "WATER BUFFALO BOX",
  "BBR" => "BRICK",
  "BBS" => "ELEV ONLY",
  "BDB" => "HMA",
@@ -517,16 +491,12 @@
  "BPT" => "ELEV ONLY",
  "BSC" => "SCUPPER",
  "BSS" => "STRUCTURAL STEEL",
- "BUC" => "Commercial", #H
  "BWC" => "SIDEWALK CONC",
  "BWL" => "BACKWALL",
- "CDE" => "Conduit" #H
  "CNA" => "AGG",
  "CNB" => "HMA",
  "CNC" => "CONC",
  "CNR" => "BRICK",
- "CRW" => "White", #H
- "CUP" => "Culvert", #H
  "DRA" => "AGG",
  "DRB" => "HMA",
  "DRC" => "CONC",
@@ -566,7 +536,6 @@
  "HHR" => "TRAFFIC SIGNAL",
  "HHT" => "TELEPHONE",
  "HHV" => "CABLE TV",
- "JUF" => "Fiber", #H
  "JUN" => "SANITARY QL-B",
  "JUT" => "COMM QL-B",
  "JUS" => "FIBER OPTIC QL-B",
@@ -574,7 +543,6 @@
  "JUW" => "WATER QL-B",
  "LNB" => "HMA",
  "LNC" => "CONC",
- "LNM" => "White", #H
  "MHM" => "STORM",
  "MHT" => "COMM",
  "MHE" => "ELEC",
@@ -586,7 +554,6 @@
  "MHW" => "H2O",
  "MTE" => "ELEC",
  "MTW" => "H2O",
- "NPS" => "Yellow", #H
  "PBB" => "HMA",
  "PBC" => "CONC",
  "PDE" => "ELEC",
@@ -596,7 +563,6 @@
  "PMC" => "CONC",
  "PMR" => "BRICK",
  "RCK" => "BOULDER",
- "RWL" => "Retaining Wall", #H
  "SBT" => "TELEPHONE",
  "SBW" => "SPRINKLER SYSTEM",
  "SHA" => "AGG",
@@ -615,10 +581,8 @@
  "SWC" => "CONC",
  "SWR" => "BRICK",
  "TIL" => "TILE",
- "VLB" => "VALVE BOX",
  "VLN" => "VALVE SANITARY",
- "VNG" => "GAS VALVE",
- "VLW" => "WATER VALVE",
+ "VNG" => "GAS",
  "WTR" => "TOP ELEV", 
 );
 @flagCodes = (
