@@ -1,95 +1,11 @@
 #!/bin/perl
 #---------------------------------------
 #
-# ProMtoH_XX.pl
+# ProMtoH_19.pl
 # Fork of process.pl - convert MPS codes to Hoelscher codes
 #
 #
 #----------------------------------------
-<<<<<<< HEAD
-# MPStoCDI_01.pl
-# fork process pro_fbk_22.pl
-# convert MPS codes to Clark Deitz Inc codes
-#----------------------------------------
-# process_22.pl
-# added various codes to maintain the detail of Hoelscher's code list
-# added	'N' - Stone/Rock
-# 	'O' - Oil and Chip
-# to Material Modifiers List
-# added Monitoring/Inspection Well 'MWL' IDOT 640
-# added a material modifier to Gutter GU*
-# added a material modifier to CURB "CR*" which causes a conflict with CRB which is our standard concrete back of curb code
-# 'curb bit' becomes CUB instead????
-# add RR mile Post 'RMP'
-# add RR switch heater 'RSH'
-# add RR tie 'RTI'
-# add RR derailer RDR
-# add additional modifier to building.  there are conflicts in the B** series due to bridge codes
-# so I'm moving Building codes to G**
-# G<OM> the first modifiier is the ownership.  This is needed for IDOT.  The second modifier is the material type
-# I added M as a material type for Masonry
-# added PA<M> for patio
-# added SL<M> for slab
-# added RW<M> for Retaining wall material type
-# added WA<M> for Wall material type
-# added ACU for air conditioning unit
-# added COL for column
-# added DCK for deck
-# added V for a material type for vinyl
-# Added a list of Survey Point types using a combination Hoelscher codes and IDOT codes SP<P>
-# A	Traverse Point
-# B	Axle
-# C	Cut Cross
-# D	Concrete Monument
-# E	Crimp Pipe
-# F	Bench Mark
-# G	GPS Monument
-# H	Control Point
-# I	Iron Pipe
-# J	Nail
-# k	Nail & Washer\shiner
-# L	PK Nail
-# M	Mag Nail
-# N	ROW Marker
-# O	RR Spike
-# P	Pole Barn Spike
-# Q	Stone
-# R	Cotton Picker Spindle
-# S	Hub
-# T	Cut Square
-# U	Rebar
-# V	Drill Hole
-# W	Brass Marker
-# X	Iron Rod/Pin
-# Y
-# Z	other
-# Removed the SPC - Special misc code - more confusion
-# Changed a few of the Railroad Related codes so that they all start with RR
-# Added some Railroad related codes too 
-# Added Riser/Feed for the Utilities RS*
-########################################
-#----------------------------------------
-#----------------------------------------
-# process_21.pl
-# add combined ASCII output with all points in one file
-#----------------------------------------
-#----------------------------------------
-# process_20.pl
-# fix bugs in bridge and point files
-# some points getting placed in both files
-# --------------------------------------------
-=======
-#
-# ProMtoH_21.pl
-# 20140804
-# took out the line number - csplit[1]
-#
-#----------------------------------------
-# process_20.pl
-# 20140321
-# 
-#---------------------------------------------
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
 # process_19.pl
 # 20131107
 # Modified:
@@ -137,10 +53,10 @@
 # change BPA from 624 to 633 and eliminated 'required Comment'"PARAPET'
 # depreciated edge of pavement/edge of shoulder combinations used on IL-83 (fail). ERB-EWC.
 # depreciated RNW Runway
-# depreciated 667 as IDOT code for crown (CRB/CRC) using breakline 607 with material comments for
+# depreciated 667 as IDOT code for crown (CRB/CRC) using breakline 607 with material comments for 
   # pavement areas with no stripeing - use stripeing as breakline where possible
 # Crown now has material types: CNB = HMA, CNC = CONC, etc. - see 667 above
-# I'm going to stop using the B6B codes and start using CRB on all curbs unless they are
+# I'm going to stop using the B6B codes and start using CRB on all curbs unless they are 
   # odd (not B6.12 or B6.24).  Use the IDOT codes of odd curbs. - LV - The B6B and B62 will still
   # work.
 # Changed BBA/BBB/BBC/BBR from 619 to 621 so that spots land on the Topo_BridgeStructures level
@@ -151,10 +67,10 @@
 # added BRR the base of a Barrier Wall
 # added SBW Splice Box Water - weird sprinkler system above ground splice box at US-14 in Mt. Pleasant
 ###################################
-#####################################
-# PROCESS_15.pl
+#####################################       
+# PROCESS_15.pl                             
 # added SNN - Warning Sign - Sanitary
-# added SNW - Warning Sign - Water
+# added SNW - Warning Sign - Water     
 ########################
 #####################################
 # PROCESS_14.pl
@@ -173,11 +89,11 @@
 #----------------------------
 # Process_12.pl
 # added:
-#  LNB = Lane Lines - HMA/BIT
+#  LNB = Lane Lines - HMA/BIT 
 #  LNC = Lance Lines - Conc
 #  TOE = Toe of Slope
 #  TOP = Top of Slope
-#  RIP = Riprap
+#  RIP = Riprap  
 #  DCA = Driveway/Commercial Aggregate
 #  DCB = Driveway/Commercial BIT/HMA
 #  DCC = Driveway/Commercial Concrete
@@ -193,22 +109,22 @@
 #  DPC = Driveway/Private-Residential Concrete
 #  DPG = Driveway/Private-Residential Ground
 #  DPR = Driveway/Private-Residential Brick
-########################################
+########################################   
 #-----------------------
 # Process_11.pl 20111028
 #
 # Added: FOU = Foundation
-#
+#  
 ########################
 # Process_10.pl 20110729
 #
 # Process_8 had many improvements - however I also migrated to "Mapping Codes"
 # (instead of "Line Codes") as an option in Geopak.  Using the "Mapping Codes" I was
-# finally able to get the curves to work. These codes also needed to be at the beginning of
+# finally able to get the curves to work. These codes also needed to be at the beginning of 
 # code like BL*EOP1.
 #
 # But the Mapping Code option forced the lines to be created in
-# point number order.  This caused problems in processing.  It ignored
+# point number order.  This caused problems in processing.  It ignored 
 # the order of the points in the ASCII file.
 # For example, say you missed an EOP1 shot on a cross section and went back to it at the
 # next set up.
@@ -222,35 +138,28 @@
 # In the "Mapping Codes" option, the order of the ASCII file is ignored and the EOP1 are sorted
 # so that the line goes 1,2,3,40.
 #
-# This was too big of a complication to screw with; we would need to RENUMBER points to
+# This was too big of a complication to screw with; we would need to RENUMBER points to 
 # get the line to draw correctly.
-# So this version has the latest code changes (MPS_IDOTCodes_V02_15.xlsx) and reverts back to
+# So this version has the latest code changes (MPS_IDOTCodes_V02_15.xlsx) and reverts back to 
 # processing with the "Line Coding" option.
 #
 ##############################################################################
 #
 #########################################################################
-# The following array maps keys used by Field Surveyors
+# The following array maps keys used by Field Surveyors 
 #
 #
 # Codes not in the list pass through unchanged
 #####################################################################################
 %pointCodes = (  # ABC -> 123
  #"XXX" => "XXX",
- "ACU" => "AC", # Air Conditioning Unit
  "AEM" => "930", # AG Electric Main
-<<<<<<< HEAD
  #"AGE" => "674", # Shoulder Aggregate Edge
- #"B6T" => "508", # Curb B6-12 Top Front #deleted v6
- "BAB" => "ABUT", # Bridge Abutment Cap Top.  The outline of the face,sides,
-=======
- "AGE" => "246", #H Shoulder Aggregate Edge
  "B62" => "516", # Curb B6-24 Top Back - depreciated
  "B6B" => "509", # Curb B6-12 Top Back - depreciated
  "B6F" => "510", # Curb B6-12 Flowline #deleted v6 # added back v15 - depreciated
  #"B6T" => "508", # Curb B6-12 Top Front #deleted v6
- "BAB" => "201", #H Bridge Abutment Cap Top.  The outline of the face,sides,
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
+ "BAB" => "615", # Bridge Abutment Cap Top.  The outline of the face,sides,
                   # and top of the abutment.  A 3d line.
  "BAL" => "613", # The outline of the face of the abutment and the face of the
                   # wingwalls.  A 2d line, usually collected prismless.
@@ -260,65 +169,44 @@
  "BBA" => "619", # Bridge Deck - AGG - Spots only
  "BBB" => "619", # Bridge Deck - BIT - Spots only
  "BBC" => "619", # Bridge Deck - CONC - Spots only
- "BBG" => "516", #H Buffalo Box - Gas
+ "BBG" => "319", # Buffalo Box - Gas
  "BBR" => "619", # Bridge Deck - BRICK - Spots only
  "BBS" => "620", # Bridge Seat.  The bridge seat elevation.  For elevation only.  Usually collected
                   # with the "hook".
-<<<<<<< HEAD
- "BBW" => "WB", # Buffalo Box - Water
-=======
- "BBW" => "701", #H Buffalo Box - Water
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
+ "BBW" => "320", # Buffalo Box - Water
  #"BBX" => "320", # Water Buffalo Box
  "BCB" => "611", # Bridge Curb.  The top back of any curb or median on a bridge.
- "BCH" => "699", # Bench - like park bench
  "BDB" => "619", # Bridge Deck. The line of the bit bridge deck.  A 3d line.
  "BDC" => "619", # Bridge Deck. The line of the concrete bridge deck.  A 3d line.
  "BDP" => "619", # Bridge Deck Plate
  "BDT" => "619", # Bridge Desk Timber
  #"BDK" => "619", # Bridge Deck
  "BEX" => "623", # Bridge Expansion Joint.  A 3d line.
-<<<<<<< HEAD
- "BHR" => "HRAIL", # Bridge Handrail
-=======
- "BHR" => "355", #H Bridge Handrail
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
+ "BHR" => "624", # Bridge Handrail
  "BLD" => "601", # v16 start of depreciation
- "BLC" => "205", #H The bottom of the concrete bridge beams.  Usually taken at
+ "BLC" => "626", # The bottom of the concrete bridge beams.  Usually taken at
                   # the beginning middle and end oof each span of the bridge beams.
                   # Usually only required on the outside (upstream and downstream) beams.
- "BLS" => "205", #H The bottom of the steel bridge beams.  Usually taken at
+ "BLS" => "627", # The bottom of the steel bridge beams.  Usually taken at
                   # the beginning middle and end oof each span of the bridge beams.
                   # Usually only required on the outside (upstream and downstream) beams.
- "BLT" => "205", #H The bottom of the timber bridge beams.  Usually taken at
+ "BLT" => "628", # The bottom of the timber bridge beams.  Usually taken at
                   # the beginning middle and end oof each span of the bridge beams.
                   # Usually only required on the outside (upstream and downstream) beams.
-<<<<<<< HEAD
- "BOL" => "BOL", # Bollard / Post
- "BOR" => "CORE", # Soil Boring?
-=======
  "BMK" => "102", #H Benchmark
  "BOL" => "372", #H Bollard / Post
  "BOR" => "158", #H Soil Boring?
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
  "BPA" => "633", # Bridge Parapet / Handrail.  A 2d line.
  "BPC" => "629", # The outline of the face of the pier cap. A 2d line usually
                   # collected "prismless".
  "BPR" => "615", # Pier Cap.  The outline of the face, sides and top of the pier cap.  A 3d line.
  "BPT" => "631", # The pier cap elevation,  For elevation only.  Usually collected
                   # with the "hook".
+ 
  #"BRC" => "611", # Bridge Curb
  "BRK" => "154", #H Breakline
- "BRR" => "343", # Barrier Wall
+ "BRR" => "579", # Barrier Wall
  "BSC" => "641", # Bridge Scupper
-<<<<<<< HEAD
- "BSH" => "BUSH",
- "BSL" => "BUSH1", # Bush Line/ Hedgerow added v6
- "BSS" => "633", # Bridge Structural Steel
- "BUC" => "BLDG", # Building - Commercial
- "BUP" => "BLDG", # Building - Public
- "BUR" => "BLDG", # Building - Residential
-=======
  "BSH" => "800", #H Bush/Shrub
  "BSL" => "803", #H Bush Line/ Hedgerow added v6
  "BSS" => "633", # Bridge Structural Steel
@@ -326,309 +214,12 @@
  "BUC" => "300", #H Building - Commercial
  "BUP" => "601", # Building - Public
  "BUR" => "602", # Building - Residential
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
  "BWC" => "619", # Bridge Deck Sidewalk Concrete
  "BWL" => "612", # Bridge Backwall The outline of the face and sides of the
                   # bridge back wall.  A 3d line.
  #"BWT" => "635", # Bridge Wing Wall Top Elevation
  "BWW" => "635", # The outline of the face and sides of the wingwall.  A 3d line with
                   # points at each elevation change.
-<<<<<<< HEAD
- "CBM" => "CB", # Catch Basin Grate
- "CKH" => "CKBS",
- "CKV" => "CKBS",
- "CNA" => "CL", # Crown - AGG
- "CNB" => "CL", # Crown - BIT/HMA - use stripeing as breakline where possible
- "CNC" => "CL", # Crown - CONC - use stripeing as breakline where possible
- "CNR" => "CL", # Crown - BRICK
- "CNP" => "CNPY", # Canopy
- "CNT" => "TMAST", # Traffic Signal Cantilever/Mast Arm
- "COL" => "PLR", # Column
- "CPH" => "MON", # Control Point - modified v6
- "CRB" => "BC", # Curb Top - Bit
- "CRC" => "BC", # Curb Top - Conc
- "CRN" => "BC", # Curb Top - Stone
-# "CRN" => "667", # Depreciated see CNA-CNR
- "CRP" => "CROP", # Crop Line
- "CRW" => "STR", # Crosswalk
- "CUB" => "CULV",
- "CUE" => "CULV",
- "CUP" => "CULV",
- "DAM" => "DAM",
- "DCA" => "EP", # ver12 - Driveway/Commercial Aggregate
- "DCB" => "EP", # ver12 - Driveway/Commercial BIT/HMA
- "DCC" => "EP", # ver12 - Driveway/Commercial Concrete
- "DCG" => "FE", # ver12 - Driveway/Commercial Ground - Field Entrance
- "DCK" => "DECK", # Deck 
- "DCR" => "EP", # ver12 - Driveway/Commercial Brick
- "DFA" => "FE", # ver12 - Driveway/Field Aggregate
- "DFB" => "FE", # ver12 - Driveway/Field BIT/HMA
- "DFC" => "FE", # ver12 - Driveway/Field Concrete
- "DFG" => "FE", # ver12 - Driveway/Field Ground - Field Entrance
- "DFR" => "FE", # ver12 - Driveway/Field Brick
- "DPA" => "EP", # ver12 - Driveway/Private-Residential Aggregate
- "DPB" => "EP", # ver12 - Driveway/Private-Residential BIT/HMA
- "DPC" => "EP", # ver12 - Driveway/Private-Residential Concrete
- "DPG" => "FE", # ver12 - Driveway/Private-Residential Ground - Field Entrance
- "DPR" => "EP", # ver12 - Driveway/Private-Residential Brick
- "DRA" => "EP", # Driveway - aggregate
- "DRB" => "EP", # Driveway - HMA
- "DRC" => "EP", # Driveway - Concrete
- "DRG" => "FE", # Field Entrance
- "DRR" => "EP", # Driveway - Brick
- "DRV" => "EP", # Depreciated see DCA Thru DPR
- "DSP" => "DS", # Downspout
- "DTH" => "FLD", # Ditch Flowline
- "DTP" => "FLS", # Ditch - Paved - Centerline
- "EOA" => "AGG", # Edge of pavement - aggregate
- "EOB" => "BIT", # Edge of pavement - bit/hma
- "EOC" => "CONC", # Edge of pavement - concrete
- "EOL" => "EP", # Edge of Lanes - added v6
- "EOR" => "EP", # Edge of pavement - Brick
- #"EOP" => "668", # Edge of pavement
- "FEC" => "ESC", # Flared End Section - Concrete
- "FES" => "ESM", # Flared End Section - Metal
- "FFL" => "FF", # Finish Floor/Threshold Elevation
- #"FLO" => "363", # Flowline / Ditch
- "FNC" => "FNC", # Fence Line
- "FND" => "MON", # Found Monument
- "FNG" => "GATE", # Gate Post
- "FNI" => "FNC", # Fence Line - Iron
- "FNL" => "FNC", # Fence Line - Chain Link
- "FNT" => "FNC", # Fence Line - Wood
- "FNV" => "FNC", # Fence Line - Vinyl
- "FNW" => "FNC", # Fence Line - Wire
- "FNX" => "FNC", # Fence Line - Barbed Wire
- "FOU" => "795", # Foundation
- "GCC" => "BLDG", # Building - Commercial - Concrete
- "GCF" => "BLDG", # Building - Commercial - Wood Frame
- "GCM" => "BLDG", # Building - Commercial - Masonry
- "GCR" => "BLDG", # Building - Commercial - Brick
- "GCS" => "BLDG", # Building - Commercial - Steel
- "GCT" => "BLDG", # Building - Commercial - Timber/Log
- "GND" => "GS",
- "GPC" => "BLDG", # Building - Public - Concrete
- "GPF" => "BLDG", # Building - Public - Wood Frame
- "GPM" => "BLDG", # Building - Public - Masonry
- "GPR" => "BLDG", # Building - Public - Brick
- "GPS" => "BLDG", # Building - Public - Steel
- "GPT" => "BLDG", # Building - Public - Timber/Log
- "GRC" => "BLDG", # Building - Residential - Concrete
- "GRF" => "BLDG", # Building - Residential - Wood Frame
- "GRL" => "GRAIL", # Guard Rail
- "GRM" => "BLDG", # Building - Residential - Masonry
- "GRR" => "BLDG", # Building - Residential - Brick
- "GRS" => "BLDG", # Building - Residential - Steel
- "GRT" => "BLDG", # Building - Residential - Timber/Log
- "GUB" => "FL", # Gutter/Flowline - HMA
- "GUC" => "FL", # Gutter/Flowline - CONC
- "GUN" => "FL", # Gutter/Flowline - Stone
- "GUP" => "GP", # Guy Pole
- "GUT" => "FL", # Gutter/Flowline
- "GUY" => "GUY", # Guy Wire
- "H2O" => "EW", # Water Line
- "HHD" => "HH", # Traffic Signal Handhole Double - added v6
- "HHE" => "HH", # Handhole - Electric
- "HHF" => "HH", # Handhole - Fiber Optic
- "HHT" => "HH", # Handhole - Telephone
- "HHR" => "HH", # Handhole - Traffic Signal Handhole
- "HHV" => "HH", # Handhole - Cable TV
- "HWL" => "HW",
- "HYD" => "FH",
- "INL" => "INLET", # Inlet
- "JUE" => "E",
- "JUF" => "FO", # JULIE Communications Fiber Optic Mark
- "JUG" => "G",
- "JUM" => "SS", # JULIE Storm Mark"
- "JUN" => "SAN", # JULIE Sanitary Mark
- "JUP" => "PIPL", # JULIE Petroleum Pipeline Mark
- "JUR" => "T",
- "JUS" => "T", # JULIE  Traffic Signal Fiber Optic Mark
- "JUT" => "T",
- "JUV" => "CTV",
- "JUW" => "W", # JULIE Waterline Mark
- "LNB" => "EP", # Lane Line - HMA
- "LNC" => "EP", # Lane Line - CONC
- "LND" => "LS",
- "LNM" => "STR",
- "MBX" => "MB",
- "MCS" => "STRU", # Misc. Concrete Slab
- "MED" => "CMED", # Median
- "MHE" => "EMH", # Manhole Electric
- "MHF" => "TMH", # Manhole Fiber Optic
- "MHG" => "GB", # Manhole Gas
- "MHS" => "TMH", # Manhole Traffic Fiber Optic
- "MHM" => "MHSS", # Manhole Storm
- "MHN" => "MHSA", # Manhole Sanitary
- "MHT" => "TMH", # Manhole Telephone/Communications
- "MHV" => "TMH", # Manhole Cable TV
- "MHW" => "WMH", # Manhole Water
- "MSC" => "STRU", # Misc - added v6
- "MTE" => "EM", # Meter - Electric
- "MTG" => "GM", # Meter - Gas
- "MTW" => "WM", # Meter Water
- "MWL" => "INSP", # Monitoring/Inspection Well
- "NPS" => "STR", # No passing line
- "PAA" => "EP", # Patio Edge - Aggregate/Gravel
- "PAB" => "EP", # Patio Edge - HMA
- "PAC" => "EP", # Patio Edge - Concrete
- "PAN" => "EP", # Patio Edge - Stone
- "PAR" => "EP", # Patio Edge - Brick
- "PBB" => "GS", # A spot elevation on a bit bridge deck.
- "PBC" => "GS", # A spot elevation on a conc bridge deck.
- "PDE" => "EPED", # Pedestal Electric
- "PDF" => "TPED", # Pedestal Fiber Optic
- "PDT" => "TPED",
- "PDV" => "CPED",
- "PHB" => "TBTH", # Phone Booth
- "PLF" => "FLAG",
- "PLT" => "OSTLT",
- "PMA" => "GS", # Pavement Spot- Aggregate
- "PMB" => "GS", # Pavement Spot- Bituminous
- "PMC" => "GS", # Pavement Spot- Concrete
- "PMR" => "GS", # Pavement Spot- Brick
- "PMT" => "GS", # Pavement
- "PPL" => "PPL", # Power Pole with Light added v6
- "PPT" => "PPT", # Power Pole with Transformer
- "PPU" => "PP",
- "PRK" => "PM", # Parking Meter
- "PUG" => "684", # Pump - Gas
- "PUW" => "PUMP", # Pump - Water
- "RCK" => "RIP", # Rock or Boulder
- "RCL" => "RR", # Railroad Centerline
- "RDR" => "464", # Railroad Derailer
- "RGG" => "GR", # Regulator - Gas
- "RIP" => "RIP", # Riprap
- "RMP" => "461", # RR Mile Post
- #"RNW" => "376",
- "RPB" => "STR", # Ramp - HMA
- "RPC" => "STR", # Ramp - Concrete
- "RPN" => "STR", # Ramp - Stone
- "RPR" => "STR", # Ramp - Brick
- "RPS" => "STR", # Ramp - Steel
- "RPT" => "STR", # Ramp - Wood
- "ROW" => "ROW",
- "RRC" => "458", # RR Signal Cabinet
- "RRF" => "463", # RR Point of Frog - 1" point
- "RRG" => "RRGT", # RR Crossing Gate
- "RRH" => "455", # RR Switch Heater
- "RRM" => "461", # RR Mile Post
- "RRP" => "456", # RR Semaphore
- "RRR" => "451", # RR Top of Rail
- "RRS" => "462", # RR Point of Switch
- "RRT" => "RRTIE", # RR Tie/Sleeper
- "RRW" => "455", # RR Switch Box
- "RSE" => "RISER", # Riser - Electricial
- "RSF" => "RISER", # Riser - Fiber optic
- "RSG" => "RISER", # Riser - Gas
- "RSM" => "RISER", # Riser - Storm
- "RSN" => "RISER", # Riser - Sanitary
- "RSR" => "RISER", # Riser - Traffic 
- "RSS" => "RISER", # Riser - Traffic Fiber Optic
- "RST" => "RISER", # Riser - Telephone
- "RSV" => "RISER", # Riser - TV
- "RSW" => "RISER", # Riser - Water
- "RVT" => "REV", # Revetment Mat
- "RWC" => "RW", # Retaining Wall - Concrete
- "RWL" => "RW", # Retaining Wall
- "RWN" => "RW", # Retaining Wall - Stone
- "RWM" => "RW", # Retaining Wall - Masonry
- "RWR" => "RW", # Retaining Wall - Brick
- "RWS" => "RW", # Retaining Wall - Steel
- "RWT" => "RW", # Retaining Wall - Timber
- "SBE" => "EBOX",
- "SBF" => "FB", # Slice Box - Fiber Optic
- "SBR" => "TSCONT", # Traffic Signal Controller - changed v6
- "SBT" => "TBOX", # SPLICE BOX TELEPHONE
- "SBV" => "281", # SPLICE BOX TELEVISION
- "SBW" => "SPRB", # Splice Box for Sprinkler System
- "SHA" => "ES", # Shoulder - Aggregate
- "SHB" => "ES", # Shoulder - Bituminous
- "SHC" => "ES", # Shoulder - Concrete
- "SLA" => "EP", # Slab - Aggregate/Gravel
- "SLB" => "EP", # Slab - HMA/Bit
- "SLC" => "EP", # Slab - Concrete
- "SLN" => "EP", # Slab - Stone
- "SLR" => "EP", # Slab - Brick
- "SNC" => "PSGN", # Sign - Commercial
- "SNE" => "UWS",
- "SNF" => "UWS",
- "SNG" => "UWS",
- "SNN" => "UWS", # Warning Sign - Sanitary
- "SNL" => "UWS",
- "SNP" => "UWS",
- "SNR" => "TSGN", # Sign - Traffic
- "SNT" => "UWS",
- "SNV" => "UWS",
- "SNW" => "UWS", # Warning Sign - Water
-# "SPC" => "699", # Special / Misc.
- "SPA" => "MON", # Traverse Point
- "SPB" => "MON", # Axle
- "SPC" => "MON108", # Cut Cross
- "SPD" => "MON", # Concrete Monument
- "SPE" => "MON100", # Crimp Pipe
- "SPF" => "BM", # Benchmark
- "SPG" => "MON", # GPS Monument
- "SPH" => "MON", # Control Point
- "SPI" => "IP", # Iron Pipe
- "SPJ" => "MON", # Nail
- "SPK" => "MON", # Nail & Washer/Shiner
- "SPL" => "MON106", # PK Nail
- "SPM" => "MON106", # Mag Nail
- "SPN" => "ROW", # ROW Marker
- "SPO" => "MON103", # RR Spike
- "SPP" => "MON107", # Pole Barn Spike
- "SPQ" => "MON", # Stone
- "SPR" => "MON", # Cotton Picker Spindle
- "SPS" => "MON", # Hub
- "SPT" => "MON", # Cut Square
- "SPU" => "MON110", # Rebar 
- "SPV" => "MON", # Drill Hole
- "SPW" => "MON", # Brass Marker
- "SPX" => "MON101", # Iron Rod/Pin
- "SPY" => "MON104", # Traverse Point
- "SPZ" => "MON", # Survey Point
- "STR" => "STEP", # Stairs/Porch
- "SWK" => "SW",
- "SWA" => "SW", # SIDEWALK - AGG
- "SWB" => "SW", # SIDEWALK - BIT/HMA
- "SWC" => "SW", # SIDEWALK - CONC
- "SWR" => "SW", # SIDEWALK - BRICK
- #"TOB" => "881", # Top of Bank
- "TIL" => "DL", # Tile
- "TNG" => "TANK", # Gas Tank
- "TNP" => "TANK", # Oil Tank
- "TOE" => "TOE", # Toe of Slope
- "TOP" => "TB", # Top of Slope
- "TRC" => "CTR",
- "TRD" => "DTR",
- "TRE" => "TRAN", # Transformer
- "TRF" => "TSP1", # Traffic Signal
- "TRL" => "DL", # Traffic Signal Loop Detector
- "THW" => "FLD",
- "TWR" => "TT", # Transmission Tower
- "UND" => "CULV", # Underdrain
- "VLB" => "VALVE", # Valve Box
- "VLG" => "GV", # Gas Valve
- "VLE" => "VALVE",
- "VLN" => "VALVE", # Valve for sanitary force main
- "VLW" => "WV", # Water Valve By Hydrant
- "VNG" => "GVP", # Gas Vent Pipe
- "VNT" => "VENT",
- "VNN" => "354",
- "WAC" => "BLDG", # Wall - not retaining - Concrete
- "WAF" => "BLDG", # Wall - not retaining - Frame
- "WAL" => "BLDG", # Wall
- "WAN" => "BLDG", # Wall - not retaining - Stone/Rock
- "WAM" => "BLDG", # Wall - not retaining - Masonry
- "WAR" => "BLDG", # Wall - not retaining - Brick
- "WAS" => "BLDG", # Wall - not retaining - Steel
- "WAT" => "BLDG", # Wall - not retaining - Timber
- "WDE" => "HDG",
- "WEL" => "WELL", # Well
- "WET" => "WET",
- "WTR" => "W",
-=======
  "CBM" => "943", #H Catch Basin Grate
  "CDE" => "400", #H Conduit Electrical
  "CDF" => "600", #H Conduit Telephone
@@ -639,7 +230,7 @@
  "CNB" => "607", # Crown - BIT/HMA - use stripeing as breakline where possible
  "CNC" => "607", # Crown - CONC - use stripeing as breakline where possible
  "CNR" => "607", # Crown - BRICK
- "CNP" => "350", # Canopy
+ "CNP" => "683", # Canopy
  "CNT" => "225", # Traffic Signal Cantilever/Mast Arm
  "COL" => "352", #H Column
  "CPH" => "100", #H Control Point - modified v6
@@ -649,7 +240,7 @@
  "CRW" => "274", #H Crosswalk
  "CUB" => "303",
  "CUE" => "302",
- "CUP" => "942", #H Culvert 
+ "CUP" => "970", #H Culvert 
  "DAM" => "369",
  "DCA" => "652", # ver12 - Driveway/Commercial Aggregate                 
  "DCB" => "652", # ver12 - Driveway/Commercial BIT/HMA           
@@ -684,26 +275,26 @@
  "FES" => "309",
  "FFL" => "354", #H Finish Floor/Threshold Elevation
  #"FLO" => "363", # Flowline / Ditch
- "FNC" => "375", #H Fence
+ "FNC" => "374", #H Fence
  "FND" => "100", #H 
  "FNG" => "381", #H Gate Post
- "FOU" => "352", #H Foundation /Column on Hoelsher
+ "FOU" => "795", # Foundation
  "GND" => "144", #H
  "GRL" => "420", # Guard Rail
  "GUT" => "253", #H Gutter/Flowline
  "GUY" => "402", #H
  "H2O" => "867", # Water Line
  "HHD" => "275", # Traffic Signal Handhole Double - added v6
- "HHE" => "603", #H Handhole - Electric
+ "HHE" => "403", #H Handhole - Electric
  "HHF" => "274", # Handhole - Fiber Optic
  "HHT" => "603", #H Handhole - Telephone
  "HHR" => "274", # Handhole - Traffic Signal Handhole
  "HHV" => "274", # Handhole - Cable TV
- "HWL" => "204", #H headwall
+ "HWL" => "311",
  "HYD" => "702", #H Hydrant
  "INL" => "945", #H Inlet
  "JUE" => "405", #H JULIE Electric Mark
- "JUF" => "605", #H JULIE Communications Fiber Optic Mark
+ "JUF" => "600", #H JULIE Communications Fiber Optic Mark
  "JUG" => "942",
  "JUM" => "962", # JULIE Storm Mark"
  "JUN" => "960", # JULIE Sanitary Mark
@@ -716,21 +307,21 @@
  "LNC" => "678", # Lane Line - CONC 
  "LND" => "318",
  "LNM" => "274", #H Lane Mark - Stripeing
- "MBX" => "384", #H Hoelsher Mailbox
+ "MBX" => "400",
  "MCS" => "323", #H Misc. Concrete Slab
  "MED" => "578", # Median
  "MHE" => "406", #H Manhole Electric
  "MHF" => "346", # Manhole Fiber Optic
- "MHG" => "506", #H Manhole Gas
- "MHS" => "606", #H Manhole Traffic Fiber Optic
+ "MHG" => "346", # Manhole Gas
+ "MHS" => "346", # Manhole Traffic Fiber Optic
  "MHM" => "956", #H Manhole Storm
- "MHN" => "906", #H Manhole Sanitary
+ "MHN" => "337", # Manhole Sanitary
  "MHT" => "606", #H Manhole Telephone/Communications
  "MHV" => "280", # Manhole Cable TV
- "MHW" => "706", #H Manhole Water
+ "MHW" => "346", # Manhole Water
  "MSC" => "699", # Misc - added v6
  "MTE" => "330", # Meter - Electric
- "MTG" => "507", #H Meter - Gas
+ "MTG" => "329", # Meter - Gas
  "MTW" => "331", # Meter Water
  "NPS" => "274", #H No passing line
  "PBB" => "666", # A spot elevation on a bit bridge deck.
@@ -765,12 +356,12 @@
  "RSW" => "455", # RR Switch Box
  "RVT" => "606",
  "RWL" => "343", #H Retaining Wall
- "SBE" => "408", #H Splice Box Electric
+ "SBE" => "282",
  "SBR" => "223", # Traffic Signal Controller - changed v6
  "SBT" => "281", # SPLICE BOX TELEPHONE
  "SBV" => "281", # SPLICE BOX TELEVISION
  "SBW" => "281", # Splice Box for Sprinkler System
- "SHA" => "246", # Shoulder - Aggregate
+ "SHA" => "674", # Shoulder - Aggregate
  "SHB" => "674", # Shoulder - Bituminous
  "SHC" => "674", # Shoulder - Concrete
  "SNC" => "423", # Sign - Commercial
@@ -795,42 +386,24 @@
  "TIL" => "304", # Tile
  "TOE" => "860", # Toe of Slope
  "TOP" => "861", # Top of Slope
- "TRC 3" => "C03", #H Tree Coniferous 
- "TRC 6" => "C06", #H Tree Coniferous 
- "TRC 9" => "C09", #H Tree Coniferous 
- "TRC 12" => "C12", #H Tree Coniferous 
- "TRC 15" => "C15", #H Tree Coniferous 
- "TRC 18" => "C18", #H Tree Coniferous 
- "TRC 24" => "C24", #H Tree Coniferous 
- "TRC 30" => "C30", #H Tree Coniferous 
- "TRD 3" => "D03", #H Tree deciduous      
- "TRD 6" => "D06", #H Tree deciduous
- "TRD 9" => "D09", #H Tree deciduous
- "TRD 12" => "D12", #H Tree deciduous
- "TRD 15" => "D15", #H Tree deciduous
- "TRD 18" => "D18", #H Tree deciduous
- "TRD 24" => "D24", #H Tree deciduous
- "TRD 30" => "D30", #H Tree deciduous 
- "TRD 36" => "D36", #H Tree deciduous 
- "TRD 42" => "D42", #H Tree deciduous
+ "TRC" => "C00", #H Tree Coniferous 
+ "TRD" => "D00", #H Tree deciduous
  "TRF" => "220", # Traffic Signal
  "TRL" => "224", # Traffic Signal Loop Detector
  "THW" => "858",
  "UND" => "381", # Underdrain 
  "VLB" => "342", # Valve Box
- "VLG" => "517", #H Gas Valve
- "VLE" => "344",
+ "VLG" => "344", # Gas Valve
+ "VLe" => "344",
  "VLN" => "337", # Valve for sanitary force main
  "VLW" => "716", #H Water Valve By Hydrant
  "VNG" => "354", # Gas Vent Pipe
- "VNT" => "513", #H Vent/Riser
- 
+ "VNT" => "354",
  "VNN" => "354",
  "WAL" => "343", #H Wall
  "WDE" => "410",
  "WET" => "379",
  "WTR" => "867",
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
 # IDOT Codes Flow Through without change to code  ##################
  "100" => "100",
  "101" => "101",
@@ -1731,9 +1304,6 @@
  "996" => "996",
  "997" => "997",
  "998" => "998",
-<<<<<<< HEAD
- "999" => "999"
-=======
  "999" => "999"   
 );
 #################################
@@ -2161,16 +1731,104 @@
  "702" => "X-Section Survey Point",
  "703" => "Topo Survey Point",
  "707" => "Cut Square", 
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
 );
-###############################################################################################3
+%symbolCodes = ( # symbols in IDOTsmd
+ "103" => "Traverse Station",
+ "109" => "Horizontal Control Station",
+ "200" => "Section Corner",
+ "201" => "Quarter Corner",
+ "207" => "Lot Corner",
+ "208" => "Block Corner",
+ "209" => "Plat Corner",
+ "210" => "Parcel Corner",
+ "213" => "R.O.W. Marker",
+ "220" => "Traffic Signal",
+ "223" => "Traffic Signal Controller",
+ "225" => "Combination Mast Arm",
+ "227" => "Vehicle Detector",
+ "228" => "Flashing Signal",
+ "249" => "Pole",
+ "251" => "GP",
+ "252" => "LP",
+ "253" => "PP",
+ "254" => "PP W/Light",
+ "255" => "PP W/Trans.",
+ "256" => "Pole - Sign",
+ "257" => "Pole - Telegraph",
+ "258" => "Pole - Telephone",
+ "259" => "Pole - T.pho.& T.grap",
+ "260" => "Pole - Television",
+ "261" => "Pole - Meter",
+ "262" => "Pole - Street Light",
+ "265" => "Guy Wire",
+ "267" => "Street Light",
+ "268" => "St. Light Cantilever",
+ "269" => "St. Light Control Box",
+ "272" => "Anchor (Deadman)",
+ "274" => "Handhole",
+ "275" => "Double Handhole",
+ "276" => "Heavy Duty Handhole",
+ "278" => "Crosswalk Signal",
+ "280" => "Junction Box",
+ "281" => "Above Grd Splice Box",
+ "282" => "Splice Box - Elect.",
+ "283" => "Splice Box - T.Phone",
+ "284" => "Splice Box - Cable TV",
+ "306" => "Catch Basin",
+ "307" => "Catch Basin Grate",
+ "308" => "Drop Inlet",
+ "309" => "End Section Flared",
+ "319" => "Buffalo Box - Gas",
+ "320" => "Buffalo Box - Water",
+ "323" => "Hydrant",
+ "324" => "Hydrant - Water",
+ "328" => "Meter",
+ "329" => "Meter - Gas",
+ "330" => "Meter - Electric",
+ "331" => "Meter - Water",
+ "332" => "Meter - Petro",
+ "334" => "Regulator",
+ "335" => "Regulator - Gas",
+ "337" => "Sewer - Sanitary",
+ "339" => "Standard Inlet",
+ "341" => "Valve",
+ "342" => "Valve Box",
+ "343" => "Valve - Water",
+ "344" => "Valve - Gas",
+ "345" => "Vault",
+ "346" => "Vault - Valve",
+ "347" => "Vault - Meter",
+ "349" => "Fire Hydrant",
+ "350" => "Warning Sign",
+ "351" => "Manhole",
+ "352" => "Manhole Lid",
+ "353" => "Manhole Grate",
+ "354" => "Vent Pipe",
+ "383" => "Cleanout",
+ "400" => "Mailbox",
+ "405" => "Tree Deciduous",
+ "406" => "Tree Coniferous",
+ "407" => "Stump",
+ "408" => "Bush",
+ "409" => "Shrub",
+ "419" => "Guardpost",
+ "423" => "Sign",
+ "454" => "R.R. Relay Box",
+ "455" => "R.R. Switch Control",
+ "458" => "R.R. Signal Cabinet",
+ "459" => "R.R. Sig. Foundation",
+ "465" => "R.R. Flashing Signal",
+ "466" => "R.R. Crossing Gate",
+ "590" => "RMA1",
+ "591" => "RMA2",
+ "592" => "RMC1",
+ "640" => "Inspection Well",
+ "673" => "Street - Sign",
+ "682" => "Parking Meter",
+ "691" => "Flag Pole",
+);
+###############################################################################################3                        
 %idotcommands = (
-<<<<<<< HEAD
- "." => "+", # Begin Line
- ")" => ".", # End Line
-);
-####################################################################################################
-=======
   # "(" => "BL*", # Begin Line 20110615   removed process_09.pl
  # "%" => "OC*", # PC or PT 20110615     removed process_09.pl
  # "+" => "CL*", # Close Figure 20110615 removed process_09.pl
@@ -2247,7 +1905,6 @@
  "DSP" => "2", # 304 - DOWNSPOUT
 );
 ########################################################################################################
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
 #########################################################################################################
 #####################
 # Some Global Vars
@@ -2262,6 +1919,8 @@ $comment=""; #lv added
 $Icode=""; #lv added (Process01)
 $hold = "";
 $noLineCounter=1;
+
+
 # ====================================================================================================
 #                                             Start of Main Program
 # ====================================================================================================
@@ -2282,12 +1941,6 @@ if ($#ARGV<0)
 $filename=$ARGV[0];
 $filename =~ s/\.[^.]*$//;
 open(IN,$ARGV[0]);
-<<<<<<< HEAD
-open(OUT1,">${filename}_all.cor");
-open(OUT2,">${filename}_bridge.cor");
-open(OUT3,">${filename}_ptln.cor");
-open(OUT4,">${filename}_cell.cor");
-=======
 # open(OUT1,">${filename}_dtm.cor");
 # open(OUT2,">${filename}_bridge.cor"); #H
 # open(OUT3,">${filename}_ptln.cor"); #H
@@ -2299,7 +1952,6 @@ open(OUT6,">${filename}_topo.cor");
 # }
 # else {
 #  $_nextAutogenPtNum=100000;
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
 # }
 while (<IN>) {
  $curIsString=0;
@@ -2313,98 +1965,25 @@ while (<IN>) {
    #using the first whitespace as the separator so:
    #$fsplit[0] = 3 Letter Code-Line Number-Line Code
    #$fsplit[1] = the Comment
-<<<<<<< HEAD
- my @ssplit = ($fsplit[0] =~ /(\w+)*(\W*)/); #added lv - this separtes the 3 Letter Code and
-   # line number from the line coding symbol
-   # \w is alpha or numeric - \W is non alpha or numeric:
-   # $ssplit[0] = the 3 Letter Code and Line Number
-   # $ssplit[1] = the Line Code
-=======
  my @ssplit = ($fsplit[0] =~ /(\w+)*(\W*)/); #added lv - this separates the 3 Letter Code and 
    # line number from the line coding symbol
    # \w is alpha or numeric - \W is non alpha or numeric:
    # $ssplit[0] = the 3 Letter Code and Line Number
    # $ssplit[1] = the Line Code 
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
  $tok[0] = $ssplit[1]; #added lv:
    # $tok[0} = the Line Code
  $tok[1] = "$ssplit[0] $fsplit[1]"; #added lv:
    # $tok[1] = the code and the comment, no line code
  my @csplit = ($ssplit[0] =~ /(\w\w\w)(\d*)/); # this is for QAQC
    # $csplit[0] = 3 letter code
-<<<<<<< HEAD
-   # $csplit[1] = line number
- if (length($fsplit[1])>0) {##############lv
-  $fsplit[1]="\;$fsplit[1]"; ########lv - adds the semi-colon before the Comment
- }
- $Icode=$pointCodes{$csplit[0]}; ## if the three letter code matches any of the codes
-=======
    # $csplit[1] = line number 
  if (length($fsplit[1])>0) {##############lv
   $fsplit[1]="\;$fsplit[1]"; ########lv - adds the semi-colon before the Comment
  }
  $Icode=$pointCodes{$csplit[0]}; ## if the three letter code matches any of the codes 
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
 
-##############Test Section
+##############Test Section 
 #print OUT1 "alksdf;alkdj   $pointCodes{$csplit[0]}\n";
-<<<<<<< HEAD
-#print OUT5 "\n\n\n\in[0] point number      = $in[0]\n";
-#print OUT5 "in[4] full code & comment      = $in[4]\n";
-#print OUT5 "fsplit[0] full code no comment = $fsplit[0]\n";
-#print OUT5 "fsplit[1] comment              = $fsplit[1]\n";
-#print OUT5 "ssplit[0] code and line no.    = $ssplit[0]\n";
-#print OUT5 "ssplit[1] line code            = $ssplit[1]\n";
-#print OUT5 "tok[0] line code               = $tok[0]\n";
-#print OUT5 "tok[1] code, line no., comment = $tok[1]\n";
-#print OUT5 "csplit[0] alpha code           = $csplit[0]\n";
-#print OUT5 "csplit[1] line number          = $csplit[1]\n";
-#print OUT5 "hold                           = $hold\n";
-#print OUT5 "c linecode                     = $c\n";
-#print OUT5 "Icode idot code, line no.      = $Icode\n\n";
-        #####################
-        #Material type prefix
-        if  (exists ($typePrefix{$csplit[0]})) {
-          $prefix = $typePrefix{$csplit[0]};
-          $csplit[1] = "$prefix$csplit[1]";
- }
- #
- ########################################Begin sorting and printing
- #################################################
-   if ($c = $idotcommands{$tok[0]})
-     {
-     print OUT1 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],$c\n";
-     }
-   else
-     {
-     print OUT1 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
-     }
-   }
-
-
-
-
-
-####################### TEST SECTION
-#print OUT5 "in[0] point number             = $in[0]\n";
-#print OUT5 "in[1] northing                 = $in[1]\n";
-#print OUT5 "in[2] easting                  = $in[2]\n";
-#print OUT5 "in[3] elevation                = $in[3]\n";
-#print OUT5 "in[4] full code & comment      = $in[4]\n";
-#print OUT5 "fsplit[0] full code no comment = $fsplit[0]\n";
-#print OUT5 "fsplit[1] comment              = $fsplit[1]\n";
-#print OUT5 "ssplit[0] code and line no.    = $ssplit[0]\n";
-#print OUT5 "ssplit[1] line code            = $ssplit[1]\n";
-#print OUT5 "tok[0] line code               = $tok[0]\n";
-#print OUT5 "tok[1] code, line no., comment = $tok[1]\n";
-#print OUT5 "csplit[0] alpha code           = $csplit[0]\n";
-#print OUT5 "csplit[1] line number          = $csplit[1]\n";
-#print OUT1 "hold                           = $hold\n";
-#print OUT5 "c linecode                     = $c\n";
-#print OUT5 "Icode idot code, line no.      = $Icode\n\n\n\n\n";
-
-
-=======
 #print OUT5 "\n\n\n\in[0] point number      = $in[0]\n";                            
 #print OUT5 "in[4] full code & comment      = $in[4]\n";                            
 #print OUT5 "fsplit[0] full code no comment = $fsplit[0]\n";                        
@@ -2430,10 +2009,10 @@ while (<IN>) {
        # print OUT6 "the line code is           $idotcommands{$tok[0]}\n";
 ###############################
   if ($c = $idotcommands{$tok[0]}) {
-     print OUT6 "$in[0],$in[1],$in[2],$in[3],$c $Icode$fsplit[1],\n"; 
+     print OUT6 "$in[0],$in[1],$in[2],$in[3],$c $Icode$csplit[1]$fsplit[1],\n"; 
   }
   else  {
-     print OUT6 "$in[0],$in[1],$in[2],$in[3],$Icode$fsplit[1],\n";
+     print OUT6 "$in[0],$in[1],$in[2],$in[3],$Icode$csplit[1]$fsplit[1],\n";
   }
  }
 
@@ -2456,7 +2035,6 @@ while (<IN>) {
 #print OUT5 "Icode idot code, line no.      = $Icode\n\n\n\n\n";           
 
  
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
  #prepare for next loop
  if ($curIsString) {
   $activeStrings{$figname}=1; #make sure the list contains an entry for this string
@@ -2465,22 +2043,6 @@ while (<IN>) {
  $lastFigname=$figname;
  $lastPtNum=$in[0];
  $figname="";
-<<<<<<< HEAD
- $comment="";  #### added lv
- $Icode="";
- $prefix="";
-
-
- $fsplit[0]="";
- $fsplit[1]="";
- $ssplit[0]="";
- $ssplit[1]="";
- $tok[0]="";
- $tok[1]="";
- $csplit[0]="";
- $csplit[1]="";
-
-=======
  $comment="";  #### added lv 
  $Icode="";
  $prefix="";  
@@ -2495,7 +2057,6 @@ while (<IN>) {
  $csplit[0]="";        
  $csplit[1]="";        
         
->>>>>>> 73a883fd5e5be727f0d30c55cce00347dac01889
 
 
 close(IN);
